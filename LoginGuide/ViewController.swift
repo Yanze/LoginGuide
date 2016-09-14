@@ -13,14 +13,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .Horizontal
+        layout.minimumLineSpacing = 0
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .orangeColor()
+        cv.backgroundColor = .whiteColor()
         cv.dataSource = self
         cv.delegate = self
+        cv.pagingEnabled = true
         return cv
     }()
     
     let cellId = "Cell"
+    
+    let pages: [Page] = {
+        let firstPage = Page(title: "Chicken Soup for the Soul", message: "If everything seems under control, you're just not going fast enough.", imageName: "1.jpg")
+        let secondPage = Page(title: "Fortune Cookie Comments", message: "A woman who doesn’t wear perfume has no future.", imageName: "2.jpg")
+        let thirdPage = Page(title: "Inspirational nonsense", message: "Do not delay anything that adds laughter and joy to your life", imageName: "3.jpg")
+        return [firstPage, secondPage, thirdPage]
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,18 +38,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         // use autolayout
         collectionView.anchorToTop(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
    
-        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.registerClass(PageCell.self, forCellWithReuseIdentifier: cellId)
     }
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return pages.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath)
-        
-        cell.backgroundColor = .whiteColor()
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath) as! PageCell
+        let page = pages[indexPath.item]
+        cell.page = page
         return cell
         
     }
