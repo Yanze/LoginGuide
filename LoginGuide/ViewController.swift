@@ -12,21 +12,44 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .Horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .orangeColor()
         cv.dataSource = self
         cv.delegate = self
         return cv
     }()
+    
+    let cellId = "Cell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.addSubview(collectionView)
-        collectionView.frame = view.frame
         // use autolayout
         collectionView.anchorToTop(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
    
+        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
     }
+    
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellId, forIndexPath: indexPath)
+        
+        cell.backgroundColor = .whiteColor()
+        return cell
+        
+    }
+    
+    // define cell size to the full screen size
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: view.frame.height)
+    }
+
 
 
 
