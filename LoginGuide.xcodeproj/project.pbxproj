@@ -14,6 +14,7 @@
 		E025B02E1D88D2BA00BBAF18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E025B02C1D88D2BA00BBAF18 /* LaunchScreen.storyboard */; };
 		E08009B31D89DF8A0079952B /* PageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08009B21D89DF8A0079952B /* PageCell.swift */; };
 		E08009B51D89E9BB0079952B /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08009B41D89E9BB0079952B /* Page.swift */; };
+		E0868CE81D947DB500170112 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0868CE71D947DB500170112 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		E025B02F1D88D2BA00BBAF18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E08009B21D89DF8A0079952B /* PageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCell.swift; sourceTree = "<group>"; };
 		E08009B41D89E9BB0079952B /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		E0868CE71D947DB500170112 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				E025B0231D88D2BA00BBAF18 /* AppDelegate.swift */,
 				E08009B41D89E9BB0079952B /* Page.swift */,
 				E025B0251D88D2BA00BBAF18 /* ViewController.swift */,
+				E0868CE71D947DB500170112 /* Extensions.swift */,
 				E08009B21D89DF8A0079952B /* PageCell.swift */,
 				E025B0271D88D2BA00BBAF18 /* Main.storyboard */,
 				E025B02A1D88D2BA00BBAF18 /* Assets.xcassets */,
@@ -97,11 +100,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = yanzeliu;
 				TargetAttributes = {
 					E025B01F1D88D2BA00BBAF18 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -141,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0868CE81D947DB500170112 /* Extensions.swift in Sources */,
 				E025B0261D88D2BA00BBAF18 /* ViewController.swift in Sources */,
 				E025B0241D88D2BA00BBAF18 /* AppDelegate.swift in Sources */,
 				E08009B51D89E9BB0079952B /* Page.swift in Sources */,
@@ -184,8 +189,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -229,8 +236,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -249,6 +258,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -261,6 +271,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yanzeliu.LoginGuide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -272,6 +283,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yanzeliu.LoginGuide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
