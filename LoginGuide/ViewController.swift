@@ -41,26 +41,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView.anchorToTop(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
    
         collectionView.registerClass(PageCell.self, forCellWithReuseIdentifier: cellId)
-        configurePageControl()
-        pageControl.addTarget(self, action: #selector(ViewController.changePage(_:)), forControlEvents: UIControlEvents.ValueChanged)
     }
-    
-    
-    // page control
-    func changePage(sender: AnyObject) -> () {
-        let x = CGFloat(pageControl.currentPage) * collectionView.frame.size.width
-        collectionView.setContentOffset(CGPointMake(x, 0), animated: true)
-    }
-    
-    func configurePageControl() {
-        self.pageControl.numberOfPages = pages.count
-        self.pageControl.currentPage = 0
-        self.pageControl.tintColor = .redColor()
-        self.pageControl.pageIndicatorTintColor = UIColor.blackColor()
-        self.pageControl.currentPageIndicatorTintColor = UIColor.greenColor()
-        self.view.addSubview(pageControl)
-    }
-    // end of page control
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
