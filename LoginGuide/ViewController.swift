@@ -10,6 +10,10 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    var pageControlBottomAnchor: NSLayoutConstraint?
+    var skipButtonAnchor: NSLayoutConstraint?
+    var nextButtonAnchor: NSLayoutConstraint?
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -62,9 +66,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         view.addSubview(skipButton)
         view.addSubview(nextButton)
         
-        _ = pageControl.anchor(nil, left:view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 100)
-        _ = skipButton.anchor(view.topAnchor, left:view.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 70)
-        _ = nextButton.anchor(view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 70)
+        pageControlBottomAnchor = pageControl.anchor(nil, left:view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 100)[1]
+        skipButtonAnchor = skipButton.anchor(view.topAnchor, left:view.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 70).first
+        nextButtonAnchor = nextButton.anchor(view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 70).first
         
         collectionView.anchorToTop(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         registerCells()
@@ -88,6 +92,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:IndexPath) -> UICollectionViewCell {
         if indexPath.item == pages.count {
             let loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath)
+            loginCell.backgroundColor = .black
             return loginCell
         }
         
@@ -105,8 +110,24 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let pageNumber = targetContentOffset.pointee.x / view.frame.width
-        pageControl.currentPage = Int(pageNumber)
+        let pageNumber = Int(targetContentOffset.pointee.x / view.frame.width)
+        pageControl.currentPage = pageNumber
+        if pageNumber == pages.count {
+            pageControlBottomAnchor?.constant = 80
+            skipButtonAnchor?.constant = -50
+            nextButtonAnchor?.constant = -50
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+        }
+        else {
+            pageControlBottomAnchor?.constant = 0
+            skipButtonAnchor?.constant = 0
+            nextButtonAnchor?.constant = 0
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+                }, completion: nil)
+        }
     }
 
 }
