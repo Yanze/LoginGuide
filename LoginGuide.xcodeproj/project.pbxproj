@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E0252D791D95BF4400437614 /* LoginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0252D781D95BF4400437614 /* LoginCell.swift */; };
 		E025B0241D88D2BA00BBAF18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E025B0231D88D2BA00BBAF18 /* AppDelegate.swift */; };
 		E025B0261D88D2BA00BBAF18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E025B0251D88D2BA00BBAF18 /* ViewController.swift */; };
 		E025B0291D88D2BA00BBAF18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E025B0271D88D2BA00BBAF18 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E0252D781D95BF4400437614 /* LoginCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCell.swift; sourceTree = "<group>"; };
 		E025B0201D88D2BA00BBAF18 /* LoginGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E025B0231D88D2BA00BBAF18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E025B0251D88D2BA00BBAF18 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				E025B0231D88D2BA00BBAF18 /* AppDelegate.swift */,
 				E08009B41D89E9BB0079952B /* Page.swift */,
 				E025B0251D88D2BA00BBAF18 /* ViewController.swift */,
+				E0252D781D95BF4400437614 /* LoginCell.swift */,
 				E0868CE71D947DB500170112 /* Extensions.swift */,
 				E08009B21D89DF8A0079952B /* PageCell.swift */,
 				E025B0271D88D2BA00BBAF18 /* Main.storyboard */,
@@ -150,6 +153,7 @@
 				E025B0241D88D2BA00BBAF18 /* AppDelegate.swift in Sources */,
 				E08009B51D89E9BB0079952B /* Page.swift in Sources */,
 				E08009B31D89DF8A0079952B /* PageCell.swift in Sources */,
+				E0252D791D95BF4400437614 /* LoginCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

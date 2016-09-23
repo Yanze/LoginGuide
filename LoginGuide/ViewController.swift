@@ -45,18 +45,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }()
     
     let skipButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type:.custom) as UIButton
         button.setTitle("Skip", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(UIColor(red:247/255, green: 154/255, blue: 27/255, alpha: 1), for: .normal)
         return button
     }()
     
     let nextButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Next", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(UIColor(red:247/255, green: 154/255, blue: 27/255, alpha: 1), for: .normal)
         return button
     }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,18 +74,30 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         collectionView.anchorToTop(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         registerCells()
+        
+        let gestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(ViewController.hideKeyboard))
+        view.addGestureRecognizer(gestureRecognizer)
+        
+        skipButton.addTarget(self, action: #selector(skipButtonPressed(sender:)), for:.touchUpInside)
+    }
+    
+    func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func skipButtonPressed(sender: UIButton) {
+        
     }
     
     fileprivate func registerCells() {
         collectionView.register(PageCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: loginCellId)
+        collectionView.register(LoginCell.self, forCellWithReuseIdentifier: loginCellId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pages.count + 1
@@ -93,7 +106,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:IndexPath) -> UICollectionViewCell {
         if indexPath.item == pages.count {
             let loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath)
-            loginCell.backgroundColor = .black
             return loginCell
         }
         
@@ -126,6 +138,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
 
 }
