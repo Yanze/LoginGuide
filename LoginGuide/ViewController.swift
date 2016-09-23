@@ -67,6 +67,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         view.addSubview(nextButton)
         
         pageControlBottomAnchor = pageControl.anchor(nil, left:view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 100)[1]
+        print(pageControlBottomAnchor)
         skipButtonAnchor = skipButton.anchor(view.topAnchor, left:view.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 70).first
         nextButtonAnchor = nextButton.anchor(view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 70).first
         
@@ -116,18 +117,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             pageControlBottomAnchor?.constant = 80
             skipButtonAnchor?.constant = -50
             nextButtonAnchor?.constant = -50
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                    self.view.layoutIfNeeded()
-                }, completion: nil)
         }
         else {
             pageControlBottomAnchor?.constant = 0
             skipButtonAnchor?.constant = 0
             nextButtonAnchor?.constant = 0
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                self.view.layoutIfNeeded()
-                }, completion: nil)
         }
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
 
 }
