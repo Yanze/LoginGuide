@@ -86,7 +86,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func skipButtonPressed(sender: UIButton) {
-        
+        pageControl.currentPage = pageControl.numberOfPages
     }
     
     fileprivate func registerCells() {
