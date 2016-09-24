@@ -13,6 +13,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var pageControlBottomAnchor: NSLayoutConstraint?
     var skipButtonAnchor: NSLayoutConstraint?
     var nextButtonAnchor: NSLayoutConstraint?
+    var currentIndex: IndexPath = IndexPath(item: 0, section: 0)
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -47,14 +48,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     let skipButton: UIButton = {
         let button = UIButton(type:.custom) as UIButton
         button.setTitle("Skip", for: .normal)
+        button.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
         button.setTitleColor(UIColor(red:247/255, green: 154/255, blue: 27/255, alpha: 1), for: .normal)
         return button
     }()
     
     let nextButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type:.custom) as UIButton
         button.setTitle("Next", for: .normal)
         button.setTitleColor(UIColor(red:247/255, green: 154/255, blue: 27/255, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
         return button
     }()
     
@@ -78,15 +81,28 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let gestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(ViewController.hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
         
-        skipButton.addTarget(self, action: #selector(skipButtonPressed(sender:)), for:.touchUpInside)
+        skipButton.addTarget(self, action: #selector(skipButtonPressed), for:.touchUpInside)
+        nextButton.addTarget(self, action: #selector(nexButtonPressed), for:.touchUpInside)
     }
     
     func hideKeyboard() {
         view.endEditing(true)
     }
     
-    func skipButtonPressed(sender: UIButton) {
-        pageControl.currentPage = pageControl.numberOfPages
+    func skipButtonPressed() {
+        let indexPath = IndexPath(item: pageControl.numberOfPages-1, section: 0)
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
+        animateButtonsAndDots()
+    }
+    
+    func nexButtonPressed() {
+        currentIndex = IndexPath(item: currentIndex.item + 1, section: 0)
+        print(pages.count )
+        
+        if currentIndex.item == pages.count {
+            animateButtonsAndDots()
+        }
+        collectionView.selectItem(at: currentIndex, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
     }
     
     fileprivate func registerCells() {
@@ -142,6 +158,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
+    }
+    
+    func animateButtonsAndDots() {
+        pageControlBottomAnchor?.constant = 80
+        skipButtonAnchor?.constant = -50
+        nextButtonAnchor?.constant = -50
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+            }, completion: nil)
     }
 
 }
