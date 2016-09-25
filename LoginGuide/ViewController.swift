@@ -13,7 +13,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var pageControlBottomAnchor: NSLayoutConstraint?
     var skipButtonAnchor: NSLayoutConstraint?
     var nextButtonAnchor: NSLayoutConstraint?
-    var currentIndex: IndexPath = IndexPath(item: 0, section: 0)
+    var currentpageNumber: Int = 0
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -90,20 +90,22 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func skipButtonPressed() {
+        
         let indexPath = IndexPath(item: pageControl.numberOfPages-1, section: 0)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
-        animateButtonsAndDots()
+        hideButtonsAndDots()
     }
     
     func nexButtonPressed() {
-        currentIndex = IndexPath(item: currentIndex.item + 1, section: 0)
-        print(pages.count )
+        currentpageNumber = currentpageNumber + 1
+        pageControl.currentPage = currentpageNumber
         
-        if currentIndex.item == pages.count {
-            animateButtonsAndDots()
+        if pageControl.currentPage == pages.count {
+            hideButtonsAndDots()
         }
-        collectionView.selectItem(at: currentIndex, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
+        collectionView.selectItem(at: IndexPath(item: currentpageNumber, section: 0), animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
     }
+
     
     fileprivate func registerCells() {
         collectionView.register(PageCell.self, forCellWithReuseIdentifier: cellId)
@@ -141,6 +143,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let pageNumber = Int(targetContentOffset.pointee.x / view.frame.width)
         pageControl.currentPage = pageNumber
+        currentpageNumber = pageNumber
         if pageNumber == pages.count {
             pageControlBottomAnchor?.constant = 80
             skipButtonAnchor?.constant = -50
@@ -160,7 +163,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         view.endEditing(true)
     }
     
-    func animateButtonsAndDots() {
+    func hideButtonsAndDots() {
         pageControlBottomAnchor?.constant = 80
         skipButtonAnchor?.constant = -50
         nextButtonAnchor?.constant = -50
