@@ -90,7 +90,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func skipButtonPressed() {
         let indexPath = IndexPath(item: pageControl.numberOfPages-1, section: 0)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
-        hideButtonsAndDots()
+        hideButtonsAndDots()      
     }
     
     func nexButtonPressed() {
@@ -141,9 +141,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let pageNumber = Int(targetContentOffset.pointee.x / view.frame.width)
         pageControl.currentPage = pageNumber
         if pageNumber == pages.count {
-            pageControlBottomAnchor?.constant = 80
-            skipButtonAnchor?.constant = -50
-            nextButtonAnchor?.constant = -50
+            hideButtonsAndDots()
         }
         else {
             pageControlBottomAnchor?.constant = 0
@@ -159,15 +157,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         view.endEditing(true)
     }
     
-    func hideButtonsAndDots() {
+    fileprivate func hideButtonsAndDots() {
         pageControlBottomAnchor?.constant = 80
         skipButtonAnchor?.constant = -50
         nextButtonAnchor?.constant = -50
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
-            }, completion: nil)
     }
+    
 
 }
 
