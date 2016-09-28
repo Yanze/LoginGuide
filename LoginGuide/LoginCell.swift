@@ -22,7 +22,7 @@ class LoginCell: UICollectionViewCell {
         return imageView
     }()
     
-    let emailTextField: leftPaddedTextField = {
+    let usernameTextField: leftPaddedTextField = {
         let textField = leftPaddedTextField()
         textField.placeholder = "Enter username"
         textField.font?.withSize(12)
@@ -60,17 +60,17 @@ class LoginCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(logoImageView)
-        addSubview(emailTextField)
+        addSubview(usernameTextField)
         addSubview(passwordTextField)
         addSubview(loginButton)
         
         _ = logoImageView.anchor(centerYAnchor, left: nil, bottom: nil, right: nil, topConstant: -150, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 30)
         logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        _ = emailTextField.anchor(logoImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 50, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 30)
-        emailTextField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        _ = usernameTextField.anchor(logoImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 50, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 30)
+        usernameTextField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        _ = passwordTextField.anchor(emailTextField.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 15, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 30)
+        _ = passwordTextField.anchor(usernameTextField.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 15, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 30)
         passwordTextField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         _ = loginButton.anchor(passwordTextField.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 15, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 30)

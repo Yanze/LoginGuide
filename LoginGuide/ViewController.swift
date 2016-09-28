@@ -13,6 +13,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var pageControlBottomAnchor: NSLayoutConstraint?
     var skipButtonAnchor: NSLayoutConstraint?
     var nextButtonAnchor: NSLayoutConstraint?
+    var loginCell: LoginCell?
     
     
     lazy var collectionView: UICollectionView = {
@@ -83,10 +84,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     
-    func loginButtonPressed() {
-        print("login pressed")
-    }
-    
     func hideKeyboard() {
         view.endEditing(true)
     }
@@ -106,8 +103,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
         }
     }
-
     
+    func hideButtonsAndDots() {
+        pageControlBottomAnchor?.constant = 80
+        skipButtonAnchor?.constant = -50
+        nextButtonAnchor?.constant = -50
+    }
+
     fileprivate func registerCells() {
         collectionView.register(PageCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(LoginCell.self, forCellWithReuseIdentifier: loginCellId)
@@ -124,9 +126,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:IndexPath) -> UICollectionViewCell {
         if indexPath.item == pages.count {
-            let loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath) as! LoginCell
-            loginCell.delegate = self
-            return loginCell
+            loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath) as? LoginCell
+            loginCell?.delegate = self
+            return loginCell!
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PageCell
@@ -134,6 +136,41 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.page = page
         return cell
         
+    }
+    
+    func loginButtonPressed() {
+        let username = loginCell?.usernameTextField.text
+        let pwd = loginCell?.passwordTextField.text
+        if username != nil && pwd != nil {
+            
+            let myUrl = NSURL(string: "https://ios-login.herokuapp.com/login")
+//            let session = URLSession.shared
+            
+            var request = URLRequest(url: myUrl as! URL)
+            request.httpMethod = "POST"
+            let postString = "{\"username\":\"\(username!)\",\"pwd\":\"\(pwd!)\"}"
+            print(postString)
+            request.httpBody = postString.data(using: .utf8)
+
+            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+                guard let data = data, error == nil else{
+                    print(error.debugDescription)
+                    return
+                }
+                
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                    print("not 200")
+                }
+                
+                let responseString = String(data: data, encoding: .utf8)
+                print(responseString!)
+                if responseString! == "OK" {
+                    // present viewcontroller
+                }
+            })
+            task.resume()
+        
+        }
     }
     
     // define cell size to the full screen size
@@ -162,17 +199,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         view.endEditing(true)
     }
     
-    fileprivate func hideButtonsAndDots() {
-        pageControlBottomAnchor?.constant = 80
-        skipButtonAnchor?.constant = -50
-        nextButtonAnchor?.constant = -50
-    }
     
     
     
     
 
 }
-
-
-
