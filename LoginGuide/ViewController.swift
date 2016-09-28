@@ -8,11 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LoginCellDelegate {
     
     var pageControlBottomAnchor: NSLayoutConstraint?
     var skipButtonAnchor: NSLayoutConstraint?
     var nextButtonAnchor: NSLayoutConstraint?
+    
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -62,7 +63,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return button
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -72,15 +72,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         view.addSubview(nextButton)
         
         pageControlBottomAnchor = pageControl.anchor(nil, left:view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 100)[1]
-        print(pageControlBottomAnchor)
         skipButtonAnchor = skipButton.anchor(view.topAnchor, left:view.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 70).first
         nextButtonAnchor = nextButton.anchor(view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 70).first
-        
+      
         collectionView.anchorToTop(view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         registerCells()
         
         let gestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(ViewController.hideKeyboard))
         view.addGestureRecognizer(gestureRecognizer)
+        
+    }
+    
+    func loginButtonPressed() {
+        print("login pressed")
     }
     
     func hideKeyboard() {
@@ -88,7 +92,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func skipButtonPressed() {
-        let indexPath = IndexPath(item: pageControl.numberOfPages-1, section: 0)
+        let indexPath = IndexPath(item: pageControl.numberOfPages - 1, section: 0)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition.centeredHorizontally)
         hideButtonsAndDots()      
     }
@@ -120,7 +124,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:IndexPath) -> UICollectionViewCell {
         if indexPath.item == pages.count {
-            let loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath)
+            let loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath) as! LoginCell
+            loginCell.delegate = self
             return loginCell
         }
         
@@ -162,6 +167,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         skipButtonAnchor?.constant = -50
         nextButtonAnchor?.constant = -50
     }
+    
+    
+    
     
 
 }

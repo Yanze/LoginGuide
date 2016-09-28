@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol LoginCellDelegate {
+    func loginButtonPressed()
+}
+
 class LoginCell: UICollectionViewCell {
+    var delegate: LoginCellDelegate?
+    
     
     let logoImageView: UIImageView = {
         let image = UIImage(named: "logo")
@@ -18,11 +24,11 @@ class LoginCell: UICollectionViewCell {
     
     let emailTextField: leftPaddedTextField = {
         let textField = leftPaddedTextField()
-        textField.placeholder = "Enter email"
+        textField.placeholder = "Enter username"
         textField.font?.withSize(12)
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.borderWidth = 0.5
-        textField.keyboardType = .emailAddress
+//        textField.keyboardType = .emailAddress
         return textField
     }()
     
@@ -36,14 +42,20 @@ class LoginCell: UICollectionViewCell {
         return textField
     }()
     
-    let loginButton: UIButton = {
+    lazy var loginButton: UIButton = {
         let button = UIButton(type:.system)
         button.setTitle("Login", for:.normal)
         button.setTitleColor(.white, for:.normal)
         button.backgroundColor = UIColor(red:247/255, green: 154/255, blue: 27/255, alpha: 1)
+        button.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
        return button
     }()
-    
+
+    func buttonPressed() {
+        if (delegate != nil) {
+            delegate?.loginButtonPressed()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
