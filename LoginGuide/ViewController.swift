@@ -30,6 +30,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     let cellId = "Cell"
     let loginCellId = "loginCellId"
+//    let homepageId = "homepageId"
     
     let pages: [Page] = {
         let firstPage = Page(title: "Chicken Soup for the Soul", message: "If everything seems under control, you're just not going fast enough.", imageName: "4.jpg")
@@ -144,7 +145,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if username != nil && pwd != nil {
             
             let myUrl = NSURL(string: "https://ios-login.herokuapp.com/login")
-//            let session = URLSession.shared
             
             var request = URLRequest(url: myUrl as! URL)
             request.httpMethod = "POST"
@@ -159,14 +159,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 }
                 
                 if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-                    print("not 200")
+                    print(httpStatus)
                 }
                 
                 let responseString = String(data: data, encoding: .utf8)
-                print(responseString!)
                 if responseString! == "OK" {
                     // present viewcontroller
+                    DispatchQueue.main.async() {
+                        self.performSegue(withIdentifier: "homepageId", sender: self)
+                    }
+
                 }
+                
             })
             task.resume()
         
