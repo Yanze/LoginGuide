@@ -111,6 +111,7 @@
 				TargetAttributes = {
 					E025B01F1D88D2BA00BBAF18 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 2R8TV9638U;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -275,6 +276,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2R8TV9638U;
 				INFOPLIST_FILE = LoginGuide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yanzeliu.LoginGuide;
@@ -287,6 +289,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2R8TV9638U;
 				INFOPLIST_FILE = LoginGuide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yanzeliu.LoginGuide;
